@@ -18,7 +18,6 @@
                         </option>
 
 
-                        <!-- Add other statuses as required -->
                     </select>
                 </form>
             </div>

@@ -53,7 +53,7 @@ class StaffController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('staff_images', 'public'); // Store the image in the public disk's staff_images directory
+            $imagePath = $request->file('image')->store('staff_images', 'public'); 
             $staff->image = $imagePath;
         }
 
@@ -64,18 +64,18 @@ class StaffController extends Controller
     }
 
 
-    //     public function destroy($id)
-// {
-//     $staff = Staff::find($id);
+        public function destroy($id)
+{
+    $staff = Staff::find($id);
 
-    //     if (!$staff) {
-//         return redirect()->back()->with('error', 'Staff member not found.');
-//     }
+        if (!$staff) {
+        return redirect()->back()->with('error', 'Staff member not found.');
+    }
 
-    //     $staff->delete();
+        $staff->delete();
 
-    //     return redirect()->route('staff_view.index')->with('success', 'Staff member removed successfully.');
-// }
+        return redirect()->route('staff_view.index')->with('success', 'Staff member removed successfully.');
+}
 public function edit(Request $request, Staff $staff)
 {
     // If request expects JSON (i.e., AJAX call), return the staff details.
@@ -88,18 +88,18 @@ public function edit(Request $request, Staff $staff)
     return view('admin.staff_view', compact('staff', 'departmentList'));
 }
 
-    public function destroy(Staff $staff)
-    {
-        // Delete the staff record
-        $staff->delete();
+    // public function destroy(Staff $staff)
+    // {
+    //     // Delete the staff record
+    //     $staff->delete();
 
-        // Optionally, delete the associated image file from storage
-        if ($staff->image) {
-            Storage::disk('public')->delete($staff->image);
-        }
+    //     // Optionally, delete the associated image file from storage
+    //     if ($staff->image) {
+    //         Storage::disk('public')->delete($staff->image);
+    //     }
 
-        return redirect()->route('staff_view.index')->with('success', 'Staff member deleted successfully.');
-    }
+    //     return redirect()->route('staff_view.index')->with('success', 'Staff member deleted successfully.');
+    // }
 
     public function update(Request $request, Staff $staff)
     {
