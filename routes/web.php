@@ -1,0 +1,42 @@
+<?php
+
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\StaffController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\BookserviceController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\UserController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/home', [HomeController::class, 'redirect'])->name('home');
+
+//user routes to book services
+Route::get('/bookservice', [BookserviceController::class, 'bookservice'])->name('user.bookservice')->middleware('auth');
+Route::get('/bookservice/{service}', [BookserviceController::class, 'create'])->name('bookservice.book');
+Route::post('/bookservice/{service}', [BookserviceController::class, 'store'])->name('bookservice.store');
+
+//user route for bookings details
+Route::get('/bookings', [BookingController::class, 'index'])->name('user.booking');
+Route::delete('/bookings/{id}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
+
+Route::get('/admin/bookings', [BookingController::class, 'showAllBookings'])->name('admin.bookings');
+
+Route::get('/admin/clients', [UserController::class, 'showClients'])->name('admin.clients.view');
+
+
+// Assign staff (assuming it's a POST route)
+Route::post('/booking/{booking}/assign-staff', 'BookingController@assignStaff')->name('booking.assignStaff');
+
+
+//resource routes
+Route::resource('staff_view', StaffController::class) ->only(['addview', 'store', 'index', 'create', 'destroy', 'edit'])->middleware(['auth', 'verified', 'admin']);
+Route::resource('department', DepartmentController::class)->only(['show', 'index', 'store', 'destroy'])->middleware(['auth', 'verified', 'admin']);
+Route::resource('service', ServiceController::class)->only(['index', 'store', 'show', 'destroy'])->middleware(['auth', 'verified', 'admin']);
+Route::resource('appointment', AppointmentController::class)->middleware(['auth', 'verified', 'admin']);
+
+
