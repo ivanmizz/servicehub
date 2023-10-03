@@ -18,7 +18,7 @@
                 Add new employee
             </button>
 
-            <!-- Main modal -->
+            <!-- Main register staff modal -->
             <div id="authentication-modal" tabindex="-1" aria-hidden="true"
                 class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-md max-h-full">
@@ -37,7 +37,7 @@
                         <div class="px-6 py-6 lg:px-8">
                             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add a new staff member
                             </h3>
-                            <form action="{{ url('staff_view') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('staff.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" mb-4">
                                     <p class="text-gray-900 dark:text-white text-lg text-center">Add a new staff member
@@ -115,6 +115,110 @@
                     </div>
                 </div>
             </div>
+
+            <!-- update modal -->
+            <div id="update-modal" tabindex="-1" aria-hidden="true"
+                class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="update-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="px-6 py-6 lg:px-8">
+                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update staff member
+                                details
+                            </h3>
+                            <form action="{{ route('staff.update', ['staff' => $staff->id]) }}"
+                                method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class=" mb-4">
+                                    <p class="text-gray-900 dark:text-white text-lg text-center">Add a new staff member
+                                    </p>
+                                    {{-- name --}}
+                                    <div class="mb-6 ">
+                                        <label for="name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                            name</label>
+                                        <input type="text" id="name" name="name"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                            required>
+                                    </div>
+                                    {{-- email --}}
+                                    <div class="mb-6 ">
+                                        <label for="email"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
+                                            email</label>
+                                        <input type="email" id="email" name="email"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                            placeholder="ivan@mycompany.com" required>
+                                    </div>
+                                    {{-- phone number --}}
+                                    <div class="mb-6 ">
+                                        <label for="phone"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                            Phone number</label>
+                                        <input type="text" id="phone" name="phone" pattern="[0-9]{10}"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                            required>
+                                    </div>
+                                    {{-- department selection --}}
+                                    <div>
+                                        <label for="department"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                                            department</label>
+                                        <select id="department" name="department"
+                                            class="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            @foreach ($departmentList as $department)
+                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- name --}}
+                                    <div class="mb-6 ">
+                                        <label for="profession"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                            Profession</label>
+                                        <input type="text" id="profession" name="profession"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                            required>
+                                    </div>
+
+                                    {{-- profile photo upload --}}
+                                    <div>
+
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            for="user_avatar">Upload profile photo</label>
+                                        <input name="image"
+                                            class="block w-full text-sm mb-6 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                            aria-describedby="user_avatar_help" id="image" type="file">
+
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <button type="submit"
+                                        class="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Update employee details
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
             @if (session('success'))
@@ -248,6 +352,12 @@
                                     <td class="px-6 py-4">
 
                                         <!-- Edit Button -->
+                                        <button data-modal-target="update-modal" data-modal-toggle="update-modal"
+                                            href="{{ route('staff_view.edit', ['staff_view' => $staff->id]) }}"
+                                            class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                            type="button">
+                                            Update
+                                        </button>
                                         <button @click="editModal = true; fetchStaffData({{ $staff->id }})"
                                             class="text-blue-600 hover:underline cursor-pointer">Edit</button>
                                         <!-- Delete Button -->
@@ -284,26 +394,6 @@
         });
     </script>
 
-    <script>
-        function fetchStaffData(id) {
-            axios.get('/staff_view/' + id + '/edit')
-                .then(response => {
-                    // Populate the form with response data
-                    document.getElementById('name').value = response.data.name;
-                    document.getElementById('email').value = response.data.email;
-                    document.getElementById('phone').value = response.data.phone;
-                    document.getElementById('profession').value = response.data.profession;
-
-                    // Handling department and image
-                    document.getElementById('department').value = response.data.department_id;
-                    document.getElementById('currentImage').src = '/storage/' + response.data.image;
-
-                })
-                .catch(error => {
-                    console.error("There was an error fetching the staff data", error);
-                });
-        }
-    </script>
 
 
 

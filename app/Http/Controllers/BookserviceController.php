@@ -36,12 +36,12 @@ class BookserviceController extends Controller
         $booking->user_id = auth()->id();
         $booking->service_id = $service->id;
         $booking->message = $request->message;
-        $booking->status = 'Pending'; // or any default status you want
+        $booking->status = 'Pending'; // default status
         $booking->booked_for = now(); // or get a date from a form input
         $booking->save();
 
         // After saving the booking...
-        session()->flash('success', 'Booking was successful!');
+    
         return redirect()->route('user.bookservice')->with('success', 'Service booked successfully.');
     }
 

@@ -14,14 +14,14 @@ class StaffController extends Controller
     public function index()
     {
         $departmentList = Department::all();
-        $staffList = Staff::with('department')->paginate(10); 
-        return view('admin.add_staff', compact('departmentList', 'staffList'));
+        $staffList = Staff::with('department')->paginate(10);
+        return view('admin.staff', compact('departmentList', 'staffList'));
     }
     // adding employees
-    public function addview()
-    {
-        return view('admin.add_staff');
-    }
+    // public function addview()
+    // {
+    //     return view('admin.staff');
+    // }
 
     public function create()
     {
@@ -53,7 +53,7 @@ class StaffController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('staff_images', 'public'); 
+            $imagePath = $request->file('image')->store('staff_images', 'public');
             $staff->image = $imagePath;
         }
 
@@ -64,42 +64,27 @@ class StaffController extends Controller
     }
 
 
-        public function destroy($id)
-{
-    $staff = Staff::find($id);
+    public function destroy($id)
+    {
+        $staff = Staff::find($id);
 
         if (!$staff) {
-        return redirect()->back()->with('error', 'Staff member not found.');
-    }
+            return redirect()->back()->with('error', 'Staff member not found.');
+        }
 
         $staff->delete();
 
-        return redirect()->route('staff_view.index')->with('success', 'Staff member removed successfully.');
-}
-public function edit(Request $request, Staff $staff)
-{
-    // If request expects JSON (i.e., AJAX call), return the staff details.
-    if ($request->expectsJson()) {
-        return response()->json($staff);
+        return redirect()->route('staff.index')->with('success', 'Staff member removed successfully.');
+    }
+    public function edit($id)
+    {
+        $staff = Staff::find($id);
+        // Retrieve the list of departments for the dropdown
+        $departmentList = Department::all();
+        return view('admin.staff', compact('staff', 'departmentList'));
     }
 
-    // Retrieve the list of departments for the dropdown
-    $departmentList = Department::all();
-    return view('admin.staff_view', compact('staff', 'departmentList'));
-}
-
-    // public function destroy(Staff $staff)
-    // {
-    //     // Delete the staff record
-    //     $staff->delete();
-
-    //     // Optionally, delete the associated image file from storage
-    //     if ($staff->image) {
-    //         Storage::disk('public')->delete($staff->image);
-    //     }
-
-    //     return redirect()->route('staff_view.index')->with('success', 'Staff member deleted successfully.');
-    // }
+   
 
     public function update(Request $request, Staff $staff)
     {
@@ -130,7 +115,7 @@ public function edit(Request $request, Staff $staff)
         }
         $staff->save();
 
-        return redirect()->route('staff_view.index')->with('success', 'Staff member updated successfully.');
+        return redirect()->route('staff.index')->with('success', 'Staff member updated successfully.');
     }
 
 

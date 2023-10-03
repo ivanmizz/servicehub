@@ -95,7 +95,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        // Delete the staff record
+        
         $service->delete();
 
 

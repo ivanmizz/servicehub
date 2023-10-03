@@ -87,6 +87,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        $department->staff()->delete();
         // Delete the department
         $department->delete();
 
