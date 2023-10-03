@@ -136,7 +136,7 @@
                             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update staff member
                                 details
                             </h3>
-                            <form action="{{ route('staff.update', ['staff' => $staff->id]) }}"
+                            {{-- <form action="{{ route('staff.update', ['staff' => $staff->id]) }}" --}}
                                 method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -274,7 +274,7 @@
                                                 class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
                                             <!-- Delete Button -->
                                             <form method="POST"
-                                                action="{{ route('staff_view.destroy', $staff->id) }}">
+                                                action="{{ route('staff.destroy', $staff->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -353,18 +353,16 @@
 
                                         <!-- Edit Button -->
                                         <button data-modal-target="update-modal" data-modal-toggle="update-modal"
-                                            href="{{ route('staff_view.edit', ['staff_view' => $staff->id]) }}"
-                                            class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                            {{-- href="{{ route('staff.edit', ['staff_view' => $staff->id]) }}" --}}
+                                            class=" text-white bg-green-700 hover:bg-green-800  font-medium rounded-lg text-sm px-2 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 "
                                             type="button">
                                             Update
                                         </button>
-                                        <button @click="editModal = true; fetchStaffData({{ $staff->id }})"
-                                            class="text-blue-600 hover:underline cursor-pointer">Edit</button>
+                                        
+                                        
                                         <!-- Delete Button -->
                                         <button @click="deleteModal = true; staffIdToDelete = {{ $staff->id }}"
-                                            class="text-red-600 hover:underline cursor-pointer">Delete</button>
-                                    </td>
-
+                                            class="text-white bg-rose-700 hover:bg-rose-800  font-medium rounded-lg text-sm px-2 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 ">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

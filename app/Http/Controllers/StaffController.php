@@ -97,6 +97,9 @@ class StaffController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        $staff = Staff::find($request->input('id'));
+
+
         $staff->name = $request->input('name');
         $staff->email = $request->input('email');
         $staff->phone = $request->input('phone');
