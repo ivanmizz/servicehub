@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('profession');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->foreignId('department_id')->constrained();
+            $table->foreignId('department_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
             $table->timestamps();
         });

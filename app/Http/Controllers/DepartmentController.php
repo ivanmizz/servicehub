@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\Service;
 
 class DepartmentController extends Controller
 {
@@ -24,8 +25,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-       
-    
+
+
     }
 
     /**
@@ -35,11 +36,11 @@ class DepartmentController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'name' => 'required|unique:departments|max:255', 
+            'name' => 'required|unique:departments|max:255',
         ]);
 
         $department = new department;
-        $department->name=$request->name;
+        $department->name = $request->name;
         $department->save();
 
         return redirect()->back()->with('success', 'Department created successfully.');
@@ -70,7 +71,8 @@ class DepartmentController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'name' => 'required|unique:departments|max:255', // Ensure name is unique
+            'name' => 'required|unique:departments|max:255',
+            // Ensure name is unique
         ]);
 
         // Update the department record
@@ -87,8 +89,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department->staff()->delete();
-        // Delete the department
+        
         $department->delete();
 
         // Redirect back with a success message

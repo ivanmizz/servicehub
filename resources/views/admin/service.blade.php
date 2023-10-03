@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-                <!-- Delete Department Modal -->
+                <!-- Delete service Modal -->
                 <div x-show="deleteModal" class="fixed inset-0 flex items-center justify-center z-50">
                     <div class="modal">
                         <!-- Modal Content for Deleting -->
@@ -217,7 +217,7 @@
                                             class="text-blue-600 hover:underline cursor-pointer">Edit</button>
                                         <!-- Delete Button -->
                                         <button
-                                            @click="deleteModal = true; departmentIdToDelete = {{ $service->id }}"
+                                            @click="deleteModal = true; serviceIdToDelete = {{ $service->id }}"
                                             class="text-red-600 hover:underline cursor-pointer">Delete</button>
                                     </td>
                                 </tr>
