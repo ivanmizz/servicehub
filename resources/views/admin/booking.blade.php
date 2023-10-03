@@ -33,7 +33,7 @@
                         <th class="px-6 py-3">Message</th>
                         <th class="px-6 py-3">Assigned Staff</th>
                         <th class="px-6 py-3">Status</th>
-                        {{-- <th class="px-6 py-3">Action</th> --}}
+                        <th class="px-6 py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,12 +46,12 @@
                             <td class="px-6 py-4">{{ $booking->message }}</td>
                             <td class="px-6 py-4">{{ $booking->staff ? $booking->staff->name : 'Not Assigned' }}</td>
                             <td class="px-6 py-4">{{ ucfirst($booking->status) }}</td>
-                            {{-- <td class="px-6 py-4">
+                            <td class="px-6 py-4">
                                 <button type="button"
-                                    class="text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded">Update</button>
+                                    class="text-white bg-green-500 hover:bg-green-600 px-2 py-2 rounded">Update</button>
                                 <button type="button"
-                                    class="text-white bg-rose-500 hover:bg-rose-600 px-2 py-1 rounded">Cancel</button>
-                            </td> --}}
+                                    class="text-white bg-rose-500 hover:bg-rose-600 px-2 py-2 rounded">Cancel</button>
+                            </td>
 
                         </tr>
                     @endforeach

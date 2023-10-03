@@ -36,9 +36,9 @@ Route::post('/booking/{booking}/assign-staff', 'BookingController@assignStaff')-
 
 
 //resource routes
-Route::resource('staff', StaffController::class) ->only(['addview', 'store', 'index', 'create', 'destroy', 'edit', 'update'])->middleware(['auth', 'verified', 'admin']);
-Route::resource('department', DepartmentController::class)->only(['show', 'index', 'store', 'destroy'])->middleware(['auth', 'verified', 'admin']);
-Route::resource('service', ServiceController::class)->only(['index', 'store', 'show', 'destroy'])->middleware(['auth', 'verified', 'admin']);
+Route::resource('staff', StaffController::class)->middleware(['auth', 'verified', 'admin']);
+Route::resource('department', DepartmentController::class)->middleware(['auth', 'verified', 'admin']);
+Route::resource('service', ServiceController::class)->middleware(['auth', 'verified', 'admin']);
 Route::resource('booking', BookingController::class)->middleware(['auth', 'verified', 'admin']);
 
 

@@ -17,11 +17,7 @@ class StaffController extends Controller
         $staffList = Staff::with('department')->paginate(10);
         return view('admin.staff', compact('departmentList', 'staffList'));
     }
-    // adding employees
-    // public function addview()
-    // {
-    //     return view('admin.staff');
-    // }
+   
 
     public function create()
     {
@@ -38,10 +34,8 @@ class StaffController extends Controller
             'department' => 'required|exists:departments,id',
             'profession' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            // Adjust validation rules for image upload as needed
+
         ]);
-
-
 
         $staff = new staff;
         $staff->name = $request->name;
@@ -49,18 +43,14 @@ class StaffController extends Controller
         $staff->phone = $request->phone;
         $staff->profession = $request->profession;
         $staff->department()->associate($request->department);
-
-
         // Handle image upload
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('staff_images', 'public');
             $staff->image = $imagePath;
         }
-
-
         $staff->save();
 
-        return redirect()->back()->with('success', 'Employee added successfully.');
+        return redirect()->back()->with('success', 'Staff member added successfully.');
     }
 
 
@@ -79,12 +69,11 @@ class StaffController extends Controller
     public function edit($id)
     {
         $staff = Staff::find($id);
-        // Retrieve the list of departments for the dropdown
         $departmentList = Department::all();
         return view('admin.staff', compact('staff', 'departmentList'));
     }
 
-   
+
 
     public function update(Request $request, Staff $staff)
     {
