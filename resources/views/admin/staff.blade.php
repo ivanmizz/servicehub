@@ -118,104 +118,109 @@
 
             <!-- update modal -->
             @foreach ($staffList as $staff)
-            <div id="update-modal-{{ $staff->id }}" tabindex="-1" aria-hidden="true"
-                class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <button type="button"
-                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="update-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        <div class="px-6 py-6 lg:px-8">
-                            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update staff member
-                                details
-                            </h3>
-                            <form action="{{ route('staff.update', $staff->id) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PATCH')
-                                <div class=" mb-4">
-                                    <p class="text-gray-900 dark:text-white text-lg text-center">
-                                    </p>
-                                    {{-- name --}}
-                                    <div class="mb-6 ">
-                                        <label for="name"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
-                                            name</label>
-                                        <input type="text" id="name" name="name"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                            value="{{ old('name', $staff->name) }}">
+                <div id="update-modal-{{ $staff->id }}" tabindex="-1" aria-hidden="true"
+                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <button type="button"
+                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="update-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                            <div class="px-6 py-6 lg:px-8">
+                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update staff member
+                                    details
+                                </h3>
+                                <form action="{{ route('staff.update', $staff->id) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class=" mb-4">
+                                        <p class="text-gray-900 dark:text-white text-lg text-center">
+                                        </p>
+                                        {{-- name --}}
+                                        <div class="mb-6 ">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                                name</label>
+                                            <input type="text" id="name" name="name"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                                value="{{ old('name', $staff->name) }}">
+                                        </div>
+                                        {{-- email --}}
+                                        <div class="mb-6 ">
+                                            <label for="email"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
+                                                email</label>
+                                            <input type="email" id="email" name="email"
+                                                value="{{ old('email', $staff->email) }}"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                        </div>
+                                        {{-- phone number --}}
+                                        <div class="mb-6 ">
+                                            <label for="phone"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                                Phone number</label>
+                                            <input type="text" id="phone"
+                                                value="{{ old('phone', $staff->phone) }}" name="phone"
+                                                pattern="[0-9]{10}"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                        </div>
+                                        {{-- department selection --}}
+                                        <div>
+                                            <label for="department_id"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                                                department</label>
+                                            <select id="department_id" name="department_id"
+                                                value="{{ old('phone', $staff->department_id) }}"
+                                                class="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                @foreach ($departmentList as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        {{-- name --}}
+                                        <div class="mb-6 ">
+                                            <label for="profession"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                                                Profession</label>
+                                            <input type="text" id="profession" name="profession"
+                                                value="{{ old('phone', $staff->profession) }}"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                        </div>
+
+                                        {{-- profile photo upload --}}
+                                        <div>
+
+                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                for="user_avatar">Upload profile photo</label>
+                                            <input name="image"
+                                                class="block w-full text-sm mb-6 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                                aria-describedby="user_avatar_help" id="image" type="file">
+
+                                        </div>
                                     </div>
-                                    {{-- email --}}
-                                    <div class="mb-6 ">
-                                        <label for="email"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
-                                            email</label>
-                                        <input type="email" id="email" name="email" value="{{ old('email', $staff->email) }}"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                            >
-                                    </div>
-                                    {{-- phone number --}}
-                                    <div class="mb-6 ">
-                                        <label for="phone"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
-                                            Phone number</label>
-                                        <input type="text" id="phone" value="{{ old('phone', $staff->phone) }}" name="phone" pattern="[0-9]{10}"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                            >
-                                    </div>
-                                    {{-- department selection --}}
                                     <div>
-                                        <label for="department_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select department</label>
-                                        <select id="department_id" name="department_id" value="{{ old('phone', $staff->department_id) }}"
-                                            class="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            @foreach ($departmentList as $department)
-                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
+
+                                        <button type="submit"
+                                            class="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Update employee details
+                                        </button>
                                     </div>
+                                </form>
 
-                                    {{-- name --}}
-                                    <div class="mb-6 ">
-                                        <label for="profession"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
-                                            Profession</label>
-                                        <input type="text" id="profession" name="profession" value="{{ old('phone', $staff->profession) }}"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                                            >
-                                    </div>
-
-                                    {{-- profile photo upload --}}
-                                    <div>
-
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                            for="user_avatar">Upload profile photo</label>
-                                        <input name="image"
-                                            class="block w-full text-sm mb-6 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            aria-describedby="user_avatar_help" id="image" type="file">
-
-                                    </div>
-                                </div>
-                                <div>
-
-                                    <button type="submit"
-                                        class="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        Update employee details
-                                    </button>
-                                </div>
-                            </form>
-
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
 
 
@@ -272,8 +277,7 @@
                                             <button @click="deleteModal = false"
                                                 class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
                                             <!-- Delete Button -->
-                                            <form method="POST"
-                                                action="{{ route('staff.destroy', $staff->id) }}">
+                                            <form method="POST" action="{{ route('staff.destroy', $staff->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -351,14 +355,15 @@
                                     <td class="px-6 py-4">
 
                                         <!-- Edit Button -->
-                                        <button data-modal-target="update-modal" data-modal-toggle="update-modal-{{ $staff->id }}"
+                                        <button data-modal-target="update-modal"
+                                            data-modal-toggle="update-modal-{{ $staff->id }}"
                                             href="{{ route('staff.edit', $staff->id) }}"
                                             class=" text-white bg-green-700 hover:bg-green-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 "
                                             type="button">
-                                            Update
+                                            Edit
                                         </button>
-                                        
-                                        
+
+
                                         <!-- Delete Button -->
                                         <button @click="deleteModal = true; staffIdToDelete = {{ $staff->id }}"
                                             class="text-white bg-rose-700 hover:bg-rose-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 ">Delete</button>

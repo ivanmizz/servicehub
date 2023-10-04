@@ -126,11 +126,11 @@
 
                                             <!-- Edit Button -->
                                             <button @click="editModal = true"
-                                                class="text-blue-600 hover:underline cursor-pointer">Edit</button>
+                                                class="text-white bg-green-500 hover:bg-green-600 px-2 py-2 rounded"">Edit</button>
                                             <!-- Delete Button -->
                                             <button
                                                 @click="deleteModal = true; departmentIdToDelete = {{ $department->id }}"
-                                                class="text-red-600 hover:underline cursor-pointer">Delete</button>
+                                                class="text-white bg-rose-500 hover:bg-rose-600 px-2 py-2 rounded">Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach

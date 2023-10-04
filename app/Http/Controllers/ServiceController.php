@@ -77,17 +77,32 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit($id)
     {
-        //
+        $staff = Service::find($id);
+        $departmentList = Department::all();
+        return view('admin.service', compact('service', 'departmentList'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, $id)
     {
-        //
+
+        $service = Service::find($id);
+        
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'department_id' => 'required|exists:departments,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+       
+        $service->update($validatedData);
+
+        return redirect()->route('staff.index')->with('success', 'Service details edited successfully.');
     }
 
     /**
