@@ -115,45 +115,64 @@
                 </div>
             @endif
 
-            <div x-data="{ editModal: false, deleteModal: false, serviceIdToDelete: null }">
-                <!-- Edit Department Modal -->
-                <div x-show="editModal" class="fixed inset-0 flex items-center justify-center z-50">
-                    <div class="modal">
-                        <!-- Modal Content for Editing -->
-                        <div class="p-4 bg-white shadow-md rounded-md">
-                            <!-- Add your edit form here -->
-                            
-                            <p>Edit Department Form</p>
-                            <!-- Close Button -->
-                            <button @click="editModal = false"
-                                class="mt-4 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Delete service Modal -->
+            <div x-data="{ editModal: false, deleteModal: false, departmentIdToDelete: null }">
+
+
+
+                <!-- Delete Staff Modal -->
                 <div x-show="deleteModal" class="fixed inset-0 flex items-center justify-center z-50">
                     <div class="modal">
-                        <!-- Modal Content for Deleting -->
-                        <div class="p-4 dark:bg-slate-900 border border-solid border-rose-500 bg-white shadow-md rounded-lg">
-                            <p class="text-xl text-center text-red-600">Confirm Deletion</p>
-                            <p class="text-center my-4 dark:text-white">Are you sure you want to delete this service?</p>
-                            <div class="flex justify-center space-x-4">
-                                <!-- Cancel Button -->
-                                <button @click="deleteModal = false"
-                                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
-                                <!-- Delete Button -->
-                                <form method="POST" x-bind:action="'{{ route('service.destroy', '') }}/' + serviceIdToDelete">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Delete</button>
-                                </form>
+                        @foreach ($serviceList as $service)
+                            <tr>
+                                <!-- other staff information columns -->
+                                <td class="px-6 py-4">
+                                    <!-- Edit Button -->
+                                    <button @click="editModal = true"
+                                        class="text-blue-600 hover:underline cursor-pointer">Edit</button>
+                                    <!-- Delete Button -->
+                                    <button @click="deleteModal = true; serviceIdToDelete = {{ $service->id }}"
+                                        class="text-red-600 hover:underline cursor-pointer">Delete
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Delete service Modal for this staff member -->
+                            <div x-show="deleteModal && serviceIdToDelete === {{ $service->id }}"
+                                class="fixed inset-0 flex items-center justify-center z-50">
+                                <div class="modal">
+                                    <!-- Modal Content for Deleting -->
+                                    <div
+                                        class="p-4 dark:bg-slate-900 border border-solid border-rose-500 bg-white shadow-md rounded-lg">
+                                        <p class="text-xl text-center text-red-600">Confirm Deletion</p>
+                                        <p class="text-center my-4 dark:text-white">Are you sure you want to delete this service?
+                                            
+                                        </p>
+                                        <div class="flex justify-center space-x-4">
+                                            <!-- Cancel Button -->
+                                            <button @click="deleteModal = false"
+                                                class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
+                                            <!-- Delete Button -->
+                                            <form method="POST" action="{{ route('service.destroy', $service->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
 
-            </div>
+
+            
+
+
+           
 
                 <div class="relative overflow-x-auto shadow-md mt-4 sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -213,12 +232,18 @@
                                     <td class="px-6 py-4">
 
                                         <!-- Edit Button -->
-                                        <button @click="editModal = true"
-                                            class="text-white bg-green-500 hover:bg-green-600 px-2 py-2 rounded">Edit</button>
+                                        <button data-modal-target="update-modal"
+                                            data-modal-toggle="update-modal-{{ $service->id }}"
+                                            href="{{ route('service.edit', $service->id) }}"
+                                            class=" text-white bg-green-700 hover:bg-green-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 "
+                                            type="button">
+                                            Edit
+                                        </button>
+
+
                                         <!-- Delete Button -->
-                                        <button
-                                            @click="deleteModal = true; serviceIdToDelete = {{ $service->id }}"
-                                            class="text-white bg-rose-500 hover:bg-rose-600 px-2 py-2 rounded">Delete</button>
+                                        <button @click="deleteModal = true; serviceIdToDelete = {{ $service->id }}"
+                                            class="text-white bg-rose-700 hover:bg-rose-800  font-medium rounded text-sm px-2 py-2 text-center dark:bg-rose-600 dark:hover:bg-rose-700 ">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
