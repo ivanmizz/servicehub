@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\staff;
 use Illuminate\Http\Request;
+
 
 class BookingController extends Controller
 {
@@ -16,10 +18,13 @@ class BookingController extends Controller
     }
 
     public function adminView()
-    {
-        $bookings = Booking::with(['user', 'service'])->paginate(10); // Fetching 10 bookings per page.
-        return view('admin.booking', compact('bookings'));
-    }
+{
+    $bookings = Booking::with(['user', 'service'])->paginate(10); // Fetching 10 bookings per page.
+    $staffList = Staff::all(); // Define $staffList here
+
+    return view('admin.booking', compact('bookings', 'staffList'));
+}
+
 
     public function showAllBookings(Request $request)
     {
@@ -58,11 +63,34 @@ class BookingController extends Controller
         }
     }
 
-    public function assignStaff(Request $request, Booking $booking)
-    {
-        $booking->staff_id = $request->staff_id;
-        $booking->save();
+    // public function assignStaff(Request $request, Booking $booking)
+    // {
+    //     $booking->staff_id = $request->staff_id;
+    //     $booking->save();
 
-        return redirect()->back()->with('success', 'Staff member assigned successfully.');
+    //     return redirect()->back()->with('success', 'Staff member assigned successfully.');
+    // }
+
+    public function edit($id)
+{
+    $booking = Booking::find($id);
+    $staffList = Staff::all();
+    return view('admin.booking', compact('booking', 'staffList')); // Compact only 'booking' and 'staffList'
+}
+
+
+    public function update(Request $request, Booking $booking)
+    {
+        
+
+        $validatedData = $request->validate([
+            'message' => 'required',
+            'status' => 'required',
+            'staff_id' => 'required|exists:staff,id',
+           
+        ]);
+        $booking->update($validatedData);
+
+        return redirect()->route('booking.adminView')->with('success', 'Booking updated successfully.');
     }
 }
