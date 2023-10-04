@@ -17,7 +17,7 @@ class StaffController extends Controller
         $staffList = Staff::with('department')->paginate(10);
         return view('admin.staff', compact('departmentList', 'staffList'));
     }
-   
+
 
     public function create()
     {
@@ -66,6 +66,7 @@ class StaffController extends Controller
 
         return redirect()->route('staff.index')->with('success', 'Staff member removed successfully.');
     }
+
     public function edit($id)
     {
         $staff = Staff::find($id);
@@ -75,9 +76,13 @@ class StaffController extends Controller
 
 
 
-    public function update(Request $request, Staff $staff)
+
+    public function update(Request $request, $id)
     {
-        $request->validate([
+
+        $staff = Staff::find($id);
+
+        $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
@@ -86,7 +91,7 @@ class StaffController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $staff = Staff::find($request->input('id'));
+        //$staff = Staff::find($request->input('id'));
 
 
         $staff->name = $request->input('name');
@@ -95,7 +100,7 @@ class StaffController extends Controller
         $staff->department_id = $request->input('department');
         $staff->profession = $request->input('profession');
 
-        // Handle image upload
+        // Handle image upload 
         if ($request->hasFile('image')) {
             // Delete the old image if it exists
             if ($staff->image) {
@@ -105,7 +110,7 @@ class StaffController extends Controller
             $imagePath = $request->file('image')->store('staff_images', 'public');
             $staff->image = $imagePath;
         }
-        $staff->save();
+        $staff->update($validatedData);
 
         return redirect()->route('staff.index')->with('success', 'Staff member updated successfully.');
     }

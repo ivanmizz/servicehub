@@ -61,7 +61,7 @@ class DepartmentController extends Controller
     public function edit(Department $department)
     {
         // Return a view to edit the details of a specific department
-        return view('departments.edit', compact('department'));
+        return view('department.edit', compact('department'));
     }
 
     /**
@@ -88,11 +88,8 @@ class DepartmentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Department $department)
-    {
-        
+    { 
         $department->delete();
-
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Department deleted successfully.');
     }
 }
