@@ -14,9 +14,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-       
+
         $departmentList = Department::all();
-        $serviceList = Service::with('department')->paginate(10);  
+        $serviceList = Service::with('department')->paginate(10);
 
         return view('admin.service', compact('departmentList', 'serviceList'));
     }
@@ -34,13 +34,13 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'department_id' => 'required|exists:departments,id',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            
+
         ]);
 
 
@@ -49,7 +49,7 @@ class ServiceController extends Controller
         $service->name = $request->name;
         $service->description = $request->description;
         $service->department_id = $request->department_id;
-       
+
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -63,7 +63,7 @@ class ServiceController extends Controller
         return redirect()->back()->with('success', 'Service created successfully.');
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -76,9 +76,9 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        $service = Service::find($id);
+       
         $departmentList = Department::all();
         return view('admin.service', compact('service', 'departmentList'));
     }
@@ -86,11 +86,11 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Service $service)
     {
 
-        $service = Service::find($id);
-        
+      
+
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -103,12 +103,12 @@ class ServiceController extends Controller
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
-        
+
             $imagePath = $request->file('image')->store('service_images', 'public');
             $service->image = $imagePath;
         }
 
-       
+
         $service->update($validatedData);
 
         return redirect()->route('service.index')->with('success', 'Service details edited successfully.');
@@ -119,7 +119,10 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        
+        if ($service->image) {
+            Storage::disk('public')->delete($service->image);
+        }
+
         $service->delete();
 
 
