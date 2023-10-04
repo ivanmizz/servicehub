@@ -81,35 +81,17 @@ class StaffController extends Controller
     {
 
         $staff = Staff::find($id);
-
+        
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
-            'department' => 'required|exists:departments,id',
+            'department_id' => 'required|exists:departments,id',
             'profession' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        //$staff = Staff::find($request->input('id'));
-
-
-        $staff->name = $request->input('name');
-        $staff->email = $request->input('email');
-        $staff->phone = $request->input('phone');
-        $staff->department_id = $request->input('department');
-        $staff->profession = $request->input('profession');
-
-        // Handle image upload 
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($staff->image) {
-                Storage::disk('public')->delete($staff->image);
-            }
-            // Store the new image
-            $imagePath = $request->file('image')->store('staff_images', 'public');
-            $staff->image = $imagePath;
-        }
+       
         $staff->update($validatedData);
 
         return redirect()->route('staff.index')->with('success', 'Staff member updated successfully.');

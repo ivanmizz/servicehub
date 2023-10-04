@@ -140,9 +140,9 @@
                             <form action="{{ route('staff.update', $staff->id) }}"
                                 method="POST" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
+                                @method('PATCH')
                                 <div class=" mb-4">
-                                    <p class="text-gray-900 dark:text-white text-lg text-center">Add a new staff member
+                                    <p class="text-gray-900 dark:text-white text-lg text-center">
                                     </p>
                                     {{-- name --}}
                                     <div class="mb-6 ">
@@ -173,10 +173,8 @@
                                     </div>
                                     {{-- department selection --}}
                                     <div>
-                                        <label for="department"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
-                                            department</label>
-                                        <select id="department" name="department" value="{{ old('phone', $staff->department) }}"
+                                        <label for="department_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select department</label>
+                                        <select id="department_id" name="department_id" value="{{ old('phone', $staff->department_id) }}"
                                             class="mb-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             @foreach ($departmentList as $department)
                                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
