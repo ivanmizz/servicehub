@@ -38,18 +38,17 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'department' => 'required|exists:departments,id',
+            'department_id' => 'required|exists:departments,id',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             
         ]);
 
 
 
-        $service = new service;
+        $service = new Service;
         $service->name = $request->name;
         $service->description = $request->description;
-        //$service->department()->associate($request->department);
-        $service->department_id = $request->department;
+        $service->department_id = $request->department_id;
        
 
         // Handle image upload
@@ -79,7 +78,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $staff = Service::find($id);
+        $service = Service::find($id);
         $departmentList = Department::all();
         return view('admin.service', compact('service', 'departmentList'));
     }
@@ -99,10 +98,20 @@ class ServiceController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        if ($request->hasFile('image')) {
+            // Optional: delete the old image if it exists
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
+        
+            $imagePath = $request->file('image')->store('service_images', 'public');
+            $service->image = $imagePath;
+        }
+
        
         $service->update($validatedData);
 
-        return redirect()->route('staff.index')->with('success', 'Service details edited successfully.');
+        return redirect()->route('service.index')->with('success', 'Service details edited successfully.');
     }
 
     /**

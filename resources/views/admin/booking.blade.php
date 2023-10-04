@@ -9,12 +9,17 @@
                     <label for="status" class="mr-2  dark:text-slate-100">Filter by Status:</label>
                     <select name="status" class="bg-slate-500 rounded-lg" id="status" onchange="this.form.submit()">
                         <option value="">All</option>
-                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                            Pending
                         </option>
-                        <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled
+                        <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>
+                            Approved
                         </option>
-                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed
+                        <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>
+                            Cancelled
+                        </option>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
+                            Completed
                         </option>
 
 

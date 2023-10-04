@@ -16,9 +16,9 @@ class Service extends Model
         return $this->belongsTo(Department::class, 'department_id');
     }
     public function bookings()
-{
-    return $this->hasMany(Booking::class);
-}
+    {
+        return $this->hasMany(Booking::class);
+    }
 
 
 }
