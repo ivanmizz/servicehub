@@ -11,25 +11,29 @@ class BookingController extends Controller
 {
     public function index()
     {
-        // Get the bookings of the authenticated user
-        $bookings = auth()->user()->bookings()->with('service')->paginate(10);
 
+        // Get the bookings of the authenticated user
+        $bookings = auth()->user()->bookings()->with('service', 'staff')->paginate(10);
+       
         return view('user.booking', compact('bookings'));
     }
 
     public function adminView()
-{
-    $bookings = Booking::with(['user', 'service'])->paginate(10); // Fetching 10 bookings per page.
-    $staffList = Staff::all(); // Define $staffList here
-
-    return view('admin.booking', compact('bookings', 'staffList'));
-}
+    {
+        $bookings = Booking::with(['user', 'service', 'staff'])->paginate(10); // Fetching 10 bookings per page.
+        $staffList = Staff::all(); // Define $staffList here
+        dd($bookings);
+        return view('admin.booking', compact('bookings', 'staffList'));
+    }
 
 
     public function showAllBookings(Request $request)
     {
+        
+        $staffList = Staff::all();
+      
         $status = $request->input('status');
-        $bookings = Booking::with('user', 'service');
+        $bookings = Booking::with('user', 'service', 'staff');
 
         if ($status) {
             $bookings = $bookings->where('status', $status);
@@ -37,8 +41,8 @@ class BookingController extends Controller
 
         $bookings = $bookings->paginate(10);
 
-
-        return view('admin.booking', compact('bookings'));
+    
+        return view('admin.booking', compact('bookings', 'staffList'));
     }
 
 
@@ -72,25 +76,28 @@ class BookingController extends Controller
     // }
 
     public function edit($id)
-{
-    $booking = Booking::find($id);
-    $staffList = Staff::all();
-    return view('admin.booking', compact('booking', 'staffList')); // Compact only 'booking' and 'staffList'
-}
+    {
+        $booking = Booking::find($id);
+        $staffList = Staff::all();
+        dd($staffList);
+        return view('admin.booking', compact('booking', 'staffList')); // Compact only 'booking' and 'staffList'
+    }
 
 
     public function update(Request $request, Booking $booking)
-    {
-        
+    {     
 
+        //dd($request->all());
+        
         $validatedData = $request->validate([
             'message' => 'required',
             'status' => 'required',
             'staff_id' => 'required|exists:staff,id',
-           
-        ]);
-        $booking->update($validatedData);
 
-        return redirect()->route('booking.adminView')->with('success', 'Booking updated successfully.');
+        ]);
+        dd($request);
+        $booking->update($validatedData);
+    
+        return redirect()->back()->with('success', 'Booking updated successfully.');
     }
 }
