@@ -67,7 +67,7 @@
                         </button>
 
                         @foreach ($serviceList as $service)
-                            ...
+                            
                             <!-- Booking Modal for {{ $service->name }} -->
                             <div id="bookingModal{{ $service->id }}" data-modal-backdrop="static" tabindex="-1"
                                 aria-hidden="true"

@@ -21,7 +21,7 @@ class BookingController extends Controller
     public function adminView()
     {
         $bookings = Booking::with(['user', 'service', 'staff'])->paginate(10); // Fetching 10 bookings per page.
-        $staffList = Staff::all(); // Define $staffList here
+        $staffList = Staff::all(); 
         dd($bookings);
         return view('admin.booking', compact('bookings', 'staffList'));
     }
@@ -67,13 +67,7 @@ class BookingController extends Controller
         }
     }
 
-    // public function assignStaff(Request $request, Booking $booking)
-    // {
-    //     $booking->staff_id = $request->staff_id;
-    //     $booking->save();
-
-    //     return redirect()->back()->with('success', 'Staff member assigned successfully.');
-    // }
+   
 
     public function edit($id)
     {
@@ -87,7 +81,7 @@ class BookingController extends Controller
     public function update(Request $request, Booking $booking)
     {     
 
-        //dd($request->all());
+        
         
         $validatedData = $request->validate([
             'message' => 'required',
