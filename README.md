@@ -12,17 +12,19 @@ Download or clone this repository
 `https://github.com/ivanmizz/servicehub-2.git`
 
 Install dependencies  
-
-  `composer install`
-
+  ```sh
+  composer install
+  ```
 Copy the .env.example into a newly created .env file , then change credentials for your database.
 
 Generate key:  
-`php artisan key:generate`
-
+```sh
+ php artisan key:generate
+``` 
 Start the backend development server  
-` php artisan serve`
-
+```
+  php artisan serve
+```
 Open new terminal to start frontend development server  
 `npm run dev`
 
