@@ -9,8 +9,9 @@ Built by Laravel, Flowbite(Tailwind), Mysql.
 **Prerequisites**: Composer, PHP 8.1, Node.
 
 Download or clone this repository    
-`https://github.com/ivanmizz/servicehub-2.git`
-
+```
+ https://github.com/ivanmizz/servicehub-2.git
+```
 Install dependencies  
   ```sh
   composer install
@@ -26,11 +27,13 @@ Start the backend development server
   php artisan serve
 ```
 Open new terminal to start frontend development server  
-`npm run dev`
-
+```
+ npm run dev
+```
 Update the dependencies by `npm install` incase of errors
 
 **Open in your browser**  
-`http://localhost:8000`
-
+```
+http://localhost:8000
+```
 
