@@ -15,8 +15,10 @@ Download or clone this repository
 Install dependencies  
   ```sh
   composer install
-  ```
-Copy the .env.example into a newly created .env file , then change credentials for your database.
+  ```  
+  Incase of errors update dependencies using `composer update`    
+
+Copy the .env.example into a newly created .env file , then edit credentials for your database.
 
 Generate key:  
 ```sh
