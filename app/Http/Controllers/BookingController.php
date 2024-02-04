@@ -22,7 +22,7 @@ class BookingController extends Controller
     {
         $bookings = Booking::with(['user', 'service', 'staff'])->paginate(10); // Fetching 10 bookings per page.
         $staffList = Staff::all(); 
-        dd($bookings);
+       // dd($bookings);
         return view('admin.booking', compact('bookings', 'staffList'));
     }
 
