@@ -50,7 +50,7 @@
                             <div class="flex justify-center space-x-4">
                                 <!-- Cancel Button -->
                                 <button @click="deleteModal = false"
-                                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
+                                class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">Cancel</button>
                                 <!-- Delete Button -->
                                 <form method="POST" x-bind:action="'{{ route('department.destroy', '') }}/' + departmentIdToDelete">
                                     @csrf

@@ -13,7 +13,7 @@ class BookingController extends Controller
     {
 
         // Get the bookings of the authenticated user
-        $bookings = auth()->user()->bookings()->with('service', 'staff')->paginate(10);
+        $bookings = Booking::with('service', 'staff')->paginate(10);
        
         return view('user.booking', compact('bookings'));
     }
@@ -69,18 +69,18 @@ class BookingController extends Controller
 
    
 
-    public function edit($id)
+    public function edit(Booking $booking)
     {
-        $booking = Booking::find($id);
-        $staffList = Staff::all();
-        dd($staffList);
-        return view('admin.booking', compact('booking', 'staffList')); // Compact only 'booking' and 'staffList'
+        $bookings = Booking::paginate(10);
+        $staffList = Staff::paginate(10);
+        return view('admin.booking', compact('bookings', 'staffList')); // Compact only 'booking' and 'staffList'
     }
 
 
     public function update(Request $request, Booking $booking)
     {     
 
+        $bookings = Booking::all();
         
         
         $validatedData = $request->validate([
@@ -89,7 +89,7 @@ class BookingController extends Controller
             'staff_id' => 'required|exists:staff,id',
 
         ]);
-        dd($request);
+
         $booking->update($validatedData);
     
         return redirect()->back()->with('success', 'Booking updated successfully.');

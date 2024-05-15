@@ -26,7 +26,7 @@ class BookserviceController extends Controller
     }
 
     public function create(Service $service)
-    { // This view will have the form to confirm the booking
+    { 
         return view('bookservice.create', compact('service'));
     }
 
@@ -36,11 +36,9 @@ class BookserviceController extends Controller
         $booking->user_id = auth()->id();
         $booking->service_id = $service->id;
         $booking->message = $request->message;
-        $booking->status = 'Pending'; // default status
-        $booking->booked_for = now(); // or get a date from a form input
+        $booking->status = 'Pending'; 
+        $booking->booked_for = now(); 
         $booking->save();
-
-        // After saving the booking...
     
         return redirect()->route('user.bookservice')->with('success', 'Service booked successfully.');
     }

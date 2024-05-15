@@ -5,7 +5,7 @@
         <div class="p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
 
             <div class="mb-4">
-                <form method="GET" action="{{ route('admin.bookings') }}">
+                <form method="GET" action="{{ route('admin.booking.adminView') }}">
                     <label for="status" class="mr-2  dark:text-slate-100">Filter by Status:</label>
                     <select name="status" class="bg-slate-500 rounded-lg" id="status" onchange="this.form.submit()">
                         <option value="">All</option>
@@ -49,7 +49,7 @@
                                 <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update booking
                                     details
                                 </h3>
-                                <form action="{{ route('booking.update', $booking->id) }}" method="POST"
+                                <form action="{{ route('admin.booking.update', $booking->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')

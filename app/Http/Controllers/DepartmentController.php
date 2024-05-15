@@ -14,7 +14,7 @@ class DepartmentController extends Controller
     public function index()
     {
         // Fetch all departments from the database
-        $departmentList = Department::all();
+        $departmentList = Department::paginate(10);
 
         // Return a view to display the list of departments
         return view('admin.department', compact('departmentList'));

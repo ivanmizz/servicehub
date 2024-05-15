@@ -26,9 +26,9 @@ Route::get('/bookings', [BookingController::class, 'index'])->name('user.booking
 Route::delete('/bookings/{id}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel')->middleware('auth');
 
 //admin routes for bookings
-Route::get('/admin/bookings', [BookingController::class, 'showAllBookings'])->name('admin.bookings')->middleware(['auth', 'verified', 'admin']);
-
+Route::get('admin/booking', [BookingController::class, 'showAllBookings', 'adminView'])->name('admin.booking.adminView')->middleware(['auth', 'verified', 'admin']);
 Route::get('/admin/clients', [UserController::class, 'showClients'])->name('admin.clients.view')->middleware(['auth', 'verified', 'admin']);
+Route::patch('admin/booking', [BookingController::class, 'edit', 'update'])->name('admin.booking.update')->middleware(['auth', 'verified', 'admin']);
 
 
 // Assign staff (assuming it's a POST route)

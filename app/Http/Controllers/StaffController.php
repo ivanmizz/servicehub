@@ -94,7 +94,7 @@ class StaffController extends Controller
        
         $staff->update($validatedData);
 
-        return redirect()->route('staff.index')->with('success', 'Employee details edited successfully.');
+        return redirect()->route('staff.index')->with('success', 'Employee details updated successfully.');
     }
 
 
